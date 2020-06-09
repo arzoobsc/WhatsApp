@@ -20,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseUser currentUser;
+
+//    private FirebaseUser currentUser;
     private Button LoginButton, PhoneLoginButton;
     private EditText UserEmail, UserPassword;
     private TextView NeedNewAccountLink, ForgetPasswordLink;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
+//        currentUser = mAuth.getCurrentUser();
 
         InitializeFields();
 
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                SenUserToMainActivity();
+                                SendUserToMainActivity();
                                 Toast.makeText(LoginActivity.this, "Logged in Successfully...", Toast.LENGTH_SHORT).show();
                                 loadingBar.dismiss();
                             }
@@ -102,21 +103,22 @@ public class LoginActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        if (currentUser != null){
+//            SenUserToMainActivity();
+//        }
+//
+//    }
 
-        if (currentUser != null){
-            SenUserToMainActivity();
-        }
-
-    }
-
-    private void SenUserToMainActivity() {
-
-        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(loginIntent);
-
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+//        user cannot go back on pressing back button
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 
     private void SenUserToRegisterActivity() {
