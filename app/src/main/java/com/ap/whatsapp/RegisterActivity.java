@@ -79,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
-                                RootRef.child("Users").child(currentUserID).setValue(email);
+                                RootRef.child("Users").child(currentUserID).setValue("");
 
 //                                SendUserToLoginActivity();
                                 SendUserToMainActivity();
